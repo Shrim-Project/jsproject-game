@@ -9,7 +9,7 @@
 
 <!-- This div is the canvas -->
 <div>
-<canvas id="canvas" width="300px" height="300px">
+<canvas id="canvas" width="650px" height="650px">
 This text is displayed if your browser does not support HTML5 Canvas.
 </canvas>
 </div>
@@ -17,7 +17,7 @@ This text is displayed if your browser does not support HTML5 Canvas.
 <style>
 
 canvas {
-    	border:1px solid #000;
+    	border: 1px solid #000;
 		}	
 
 </style>
@@ -35,14 +35,14 @@ var canvas;
 var ctx;
 var dx = 1;
 var dy = 1;
-var speed = 2;
+var speed = 4;
 var x = 150;
 var y = 100;
 var velY = 0;
 var velX = 0;
-var WIDTH = 1920;
-var HEIGHT = 1080;
-var friction = 0.98;
+var WIDTH = 650;
+var HEIGHT = 650;
+var friction = 0.99;
 var keys = [];
 
 function circle(x,y,r) {
@@ -58,6 +58,7 @@ function rect(x,y,w,h) {
 	ctx.fill();
 	ctx.stroke();
 }
+
 
 function clear() {
 	ctx.clearRect(0, 0, WIDTH, HEIGHT);
@@ -105,10 +106,10 @@ function update(){
     	velX *= friction;
     	x += velX;
 
-    	if (x >= 295 && !keys[39]) {
+    	if (x >= WIDTH-5 && !keys[39]) {
         velX *= -friction;
-    } else if(x >= 295 && keys[39]) {
-    	x = 295;
+    } else if(x >= WIDTH-5 && keys[39]) {
+    	x = WIDTH-5;
     }
 
     if (x <= 5 && !keys[37]) {
@@ -118,10 +119,10 @@ function update(){
     }
 
 
-    if (y >= 295 && !keys[40]) {
+    if (y >= HEIGHT-5 && !keys[40]) {
         velY *= -friction;
-    } else if(y >= 295 && keys[40]) {
-    	y = 295;
+    } else if(y >= HEIGHT-5 && keys[40]) {
+    	y = HEIGHT-5;
     }
 
     if (y <= 5 && !keys[38]) {
