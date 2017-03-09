@@ -1,246 +1,40 @@
 <!doctype html>
 <html>
-<head>
-<meta charset="UTF-8" />
-<title>Link game test</title>
-</head>
+<title>A Tale of Two Shrims</title>
 <body>
-<section>
-
-<!-- This div is the canvas -->
-<div>
-<canvas id="canvas" width="650px" height="650px">
-This text is displayed if your browser does not support HTML5 Canvas.
-</canvas>
-</div>
-
 <style>
 
-canvas {
-    	border: 1px solid #000;
-		}	
 
+#button {
+    width: 6em;
+    border: 2px solid green;
+    background: #ffe;
+    border-radius: 5px;
+    text-align: center;
+}
+a {
+    display: block;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+}
+a:hover {
+    color: red;
+    background: #eff;
+}
+
+h1 {
+	text-align: center;
+	color: black;
+
+}
 </style>
 
-<script type="text/javascript">
-/*
-   index.html - draws a dot on the screen, credit to:
-   http://html5.litten.com/moving-shapes-on-the-html5-canvas-with-the-keyboard/
-   programmer: MHoel, Nov 3, 2014
-*/
+	<div>
+	<h1>A Tale of Two Shrims</h1>
+	<div id="button"><a href="game.html">Click here to play</a></div>
 
-
-// Set some global variables
-var canvas;
-var ctx;
-var dx = 1;
-var dy = 1;
-var speed = 4;
-var x = 150;
-var y = 100;
-var velY = 0;
-var velX = 0;
-var WIDTH = 650;
-var HEIGHT = 650;
-var xx = WIDTH-150;
-var yy = HEIGHT-100;
-var velXX = 0;
-var velYY = 0;
-var friction = 0.99;
-var keys = [];
-
-function circle(x,y,r) {
-	ctx.beginPath();
-	ctx.arc(x, y, r, 0, Math.PI*2, true);
-	ctx.fill();
-}
-
-function rect(x,y,w,h) {
-	ctx.beginPath();
-	ctx.rect(x,y,w,h);
-	ctx.closePath();
-	ctx.fill();
-	ctx.stroke();
-}
-
-
-function clear() {
-	ctx.clearRect(0, 0, WIDTH, HEIGHT);
-}
-
-// Important starting function
-function init() {
-	canvas = document.getElementById("canvas");
-	ctx = canvas.getContext("2d");
-	return setInterval(draw, 1); // this is key, tells draw function to fire 1x per second
-	
-}
-
-function update(){
-	requestAnimationFrame(update);
-
-	// movement for player 1 (arrow keys)
-
-    if(keys[38]) { // Up arrow
-        if (velY > -speed) {
-            velY--;
-        }
-    }
-    
-    if (keys[40]) { // Down arrow
-        if (velY < speed) {
-            velY++;
-        }
-    }
-    if (keys[39]) { // Right arrow
-        if (velX < speed) {
-            velX++;
-        }
-    }
-    if (keys[37]) { // Left arrow
-        if (velX > -speed) {
-            velX--;
-        }
-    }
-
-    if (keys[18]) {
-    	velX *= 0.9;
-    	velY *= 0.9;
-    }
-
-
-		    // apply some friction to y velocity.
-    	velY *= friction;
-    	y += velY;
-
-    	// apply some friction to x velocity.
-    	velX *= friction;
-    	x += velX;
-
-    	//keep player 1 within the screen
-    	if (x >= WIDTH-5 && !keys[39]) {
-        velX *= -friction;
-    } else if(x >= WIDTH-5 && keys[39]) {
-    	x = WIDTH-5;
-    }
-
-    if (x <= 5 && !keys[37]) {
-        velX *= -friction;
-    } else if(x <= 5 && keys[37]) {
-    	x = 5;
-    }
-
-
-    if (y >= HEIGHT-5 && !keys[40]) {
-        velY *= -friction;
-    } else if(y >= HEIGHT-5 && keys[40]) {
-    	y = HEIGHT-5;
-    }
-
-    if (y <= 5 && !keys[38]) {
-        velY *= -friction;
-    } else if(y <= 5 && keys[38]) {
-    	y = 5;
-    }
-    //*****************************
-    //
-    // movement for player 2 (WASD)
-    //
-    //****************************
-
-    if(keys[87]) { // W key
-        if (velYY > -speed) {
-            velYY--;
-        }
-    }
-    
-    if (keys[83]) { // S key
-        if (velYY < speed) {
-            velYY++;
-        }
-    }
-    if (keys[68]) { // D key
-        if (velXX < speed) {
-            velXX++;
-        }
-    }
-    if (keys[65]) { // A key
-        if (velXX > -speed) {
-            velXX--;
-        }
-    }
-
-    if (keys[16]) {
-    	velXX *= 0.9;
-    	velYY *= 0.9;
-    }
-
-    		    // apply some friction to yy velocity.
-    	velYY *= friction;
-    	yy += velYY;
-
-    	// apply some friction to xx velocity.
-    	velXX *= friction;
-    	xx += velXX;
-
-    	//keep player 2 within screen
-    	if (xx >= WIDTH-5 && !keys[68]) {
-        velXX *= -friction;
-    } else if(xx >= WIDTH-5 && keys[68]) {
-    	xx = WIDTH-5;
-    }
-
-    if (xx <= 5 && !keys[65]) {
-        velXX *= -friction;
-    } else if(xx <= 5 && keys[65]) {
-    	xx = 5;
-    }
-
-
-    if (yy >= HEIGHT-5 && !keys[83]) {
-        velYY *= -friction;
-    } else if(yy >= HEIGHT-5 && keys[83]) {
-    	yy = HEIGHT-5;
-    }
-
-    if (yy <= 5 && !keys[87]) {
-        velYY *= -friction;
-    } else if(yy <= 5 && keys[87]) {
-    	yy = 5;
-    }
-
-}
-
-
-function draw() {
-	clear();
-	//draw rect
-	ctx.fillStyle = "white";
-	ctx.strokeStyle = "black";
-	rect(0,0,WIDTH,HEIGHT);
-	//draw player 1
-	ctx.fillStyle = "purple";
-	ctx.strokeStyle = "black";
-	circle(x, y, 10);
-	//draw player 2
-	ctx.fillStyle = "orange";
-	ctx.strokeStyle = "black";
-	circle(xx,yy,10)
-}
-
-// Main part of program
-init();
-update();
-//window.addEventListener('keydown',doKeyDown,true);
-
-document.body.addEventListener("keydown", function (e) {
-    keys[e.keyCode] = true;
-});
-document.body.addEventListener("keyup", function (e) {
-    keys[e.keyCode] = false;
-});
-
-</script>
-</section>
+	</div>
 </body>
 </html>
