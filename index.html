@@ -67,7 +67,7 @@ function clear() {
 function init() {
 	canvas = document.getElementById("canvas");
 	ctx = canvas.getContext("2d");
-	return setInterval(draw, 1); // this is key, tells draw function to fire 10x per second
+	return setInterval(draw, 1); // this is key, tells draw function to fire 1x per second
 	
 }
 
@@ -105,16 +105,29 @@ function update(){
     	velX *= friction;
     	x += velX;
 
-    	if (x >= 295) {
-        x = 295;
-    } else if (x <= 5) {
-        x = 5;
+    	if (x >= 295 && !keys[39]) {
+        velX *= -friction;
+    } else if(x >= 295 && keys[39]) {
+    	x = 295;
     }
 
-    if (y > 295) {
-        y = 295;
-    } else if (y <= 5) {
-        y = 5;
+    if (x <= 5 && !keys[37]) {
+        velX *= -friction;
+    } else if(x <= 5 && keys[37]) {
+    	x = 5;
+    }
+
+
+    if (y >= 295 && !keys[40]) {
+        velY *= -friction;
+    } else if(y >= 295 && keys[40]) {
+    	y = 295;
+    }
+
+    if (y <= 5 && !keys[38]) {
+        velY *= -friction;
+    } else if(y <= 5 && keys[38]) {
+    	y = 5;
     }
 }
 
