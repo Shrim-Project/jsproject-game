@@ -103,6 +103,11 @@ function update(){
         }
     }
 
+    if (keys[18]) {
+    	velX *= 0.9;
+    	velY *= 0.9;
+    }
+
 
 		    // apply some friction to y velocity.
     	velY *= friction;
@@ -165,6 +170,11 @@ function update(){
         }
     }
 
+    if (keys[16]) {
+    	velXX *= 0.9;
+    	velYY *= 0.9;
+    }
+
     		    // apply some friction to yy velocity.
     	velYY *= friction;
     	yy += velYY;
@@ -210,7 +220,7 @@ function draw() {
 	rect(0,0,WIDTH,HEIGHT);
 	//draw player 1
 	ctx.fillStyle = "purple";
-	ctx.strokeStyl = "black";
+	ctx.strokeStyle = "black";
 	circle(x, y, 10);
 	//draw player 2
 	ctx.fillStyle = "orange";
