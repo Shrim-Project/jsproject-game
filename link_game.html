@@ -1,0 +1,223 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Link game in a browser</title>
+</head>
+<body>
+<style>
+
+body {
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+h1 {
+	color: #0C0;
+	margin: 0; padding: 0;
+}
+
+p {
+	color: "black";
+}
+
+div {
+	cursor:none;
+}
+
+</style>
+<h1>Link Game in a Browser</h1><br>
+<p>Use the arrow keys to control Link. <br>
+Move around and try not to crash into obstacles</p>
+<img src="http://www1.ucc.on.ca/GEO/MrHoel/2015/ics4u/game/stuff/link.gif">
+<img src="http://www1.ucc.on.ca/GEO/MrHoel/2015/ics4u/game/stuff/linkright.gif">
+<img src="http://www1.ucc.on.ca/GEO/MrHoel/2015/ics4u/game/stuff/linkrightrun.gif">
+<img src="http://www1.ucc.on.ca/GEO/MrHoel/2015/ics4u/game/stuff/linkleft.gif">
+<img src="http://www1.ucc.on.ca/GEO/MrHoel/2015/ics4u/game/stuff/linkleftrun.gif">
+<img src="http://www1.ucc.on.ca/GEO/MrHoel/2015/ics4u/game/stuff/linkup.gif">
+<img src="http://www1.ucc.on.ca/GEO/MrHoel/2015/ics4u/game/stuff/linkuprun.gif">
+<img src="http://www1.ucc.on.ca/GEO/MrHoel/2015/ics4u/game/stuff/linkdown.gif">
+<img src="http://www1.ucc.on.ca/GEO/MrHoel/2015/ics4u/game/stuff/linkdownrun.gif">
+<img src="http://www1.ucc.on.ca/GEO/MrHoel/2015/ics4u/game/stuff/linkdead.gif">
+
+<!-- This div is the canvas -->
+<div>
+<canvas id="canvas" width="500" height="400">
+This text is displayed if your browser does not support HTML5 Canvas.
+</canvas>
+</div>
+
+<script type="text/javascript">
+/*
+   index.html - draws a dot on the screen, credit to:
+   http://html5.litten.com/moving-shapes-on-the-html5-canvas-with-the-keyboard/
+   programmer: MHoel, Nov 3, 2014
+*/
+
+
+// Set some global variables
+var canvas;
+var ctx;
+var dx = 5;
+var dy = 5;
+var x = 100;
+var y = 100;
+var WIDTH = 500;
+var HEIGHT = 400;
+var stuffDir = "http://www1.ucc.on.ca/GEO/MrHoel/2015/ics4u/game/stuff/";
+var linkImage = "link.gif";
+var linkObj = {x:x,y:y,width:30,height:50}
+var myArray = new Array (20);
+myArray = popArray(myArray);
+
+function popArray(myArray) {
+	var i;
+	for (i = 0; i < myArray.length; i++) {
+    	myArray[i] = [getRandomInt(0,WIDTH),getRandomInt(0,HEIGHT),10,10];
+	}
+	return myArray;
+}
+
+function getRandomInt (min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function rect(x,y,w,h) {
+	ctx.beginPath();
+	ctx.rect(x,y,w,h);
+	ctx.closePath();
+	ctx.fill();
+	ctx.stroke();
+}
+
+function clear() {
+	ctx.clearRect(0, 0, WIDTH, HEIGHT);
+}
+
+function ReleaseIt(evt){
+	switch (evt.keyCode) {
+		case 32:  /* Right arrow was pressed */
+			//var snd = new Audio(swshSnd); // buffers automatically when created
+			linkImage = "link.gif";
+			break;
+		}
+}
+
+function isCollide(a) {
+	var obj_x = a[0]; var obj_y = a[1]; var obj_width = a[2]; var obj_height = a[3];
+	var link_width = 30; var link_height = 50;
+    return !(
+        ((obj_y + obj_height) < (y)) ||
+        (obj_y > (y + link_height)) ||
+        ((obj_x + obj_width) < x) ||
+        (obj_x > (x + link_width))
+    );
+}
+
+function MoveIt(evt){
+	
+	var i;
+	for (i = 0; i < myArray.length; i++) {
+    	if (isCollide(myArray[i], linkObj)) {
+			x = 100; y = 100;
+			var snd = new Audio("http://www1.ucc.on.ca/GEO/MrHoel/2015/ics4u/game/stuff/youch.wav");
+			snd.play();
+		}
+	}
+	
+	switch (evt.keyCode) {
+		case 38:  /* Up arrow was pressed */
+			if (y - dy > 0){
+				y -= dy;
+				if (linkImage == "linkuprun.gif") {
+					linkImage = "linkup.gif";
+				} else {
+					linkImage = "linkuprun.gif";
+				}
+			}
+			break;
+		case 40:  /* Down arrow was pressed */
+			if (y + dy < HEIGHT){
+				y += dy;
+				if (linkImage == "linkdownrun.gif") {
+					linkImage = "linkdown.gif";
+				} else {
+					linkImage = "linkdownrun.gif";
+				}
+			}
+			break;
+		case 37:  /* Left arrow was pressed */
+			if (x - dx > 0){
+				x -= dx;
+				if (linkImage == "linkleftrun.gif") {
+					linkImage = "linkleft.gif";
+				} else {
+					linkImage = "linkleftrun.gif";
+				}
+			}
+			break;
+		case 39:  /* Right arrow was pressed */
+			if (x + dx < WIDTH){
+				x += dx;
+				if (linkImage == "linkrightrun.gif") {
+					linkImage = "linkright.gif";
+				} else {
+					linkImage = "linkrightrun.gif";
+				}
+			}
+			break;
+		case 32:  /* Right arrow was pressed */
+			linkImage = "swooshleft.gif";
+			var snd = new Audio("http://www1.ucc.on.ca/GEO/MrHoel/2015/ics4u/game/stuff/swoosh.wav");
+			snd.play();
+			break;
+		}
+		
+		
+}
+
+function draw() {
+	clear();
+	
+	// draw outline of game
+	ctx.fillStyle = "white";
+	ctx.strokeStyle = "black";
+	rect(0,0,WIDTH,HEIGHT);
+	
+	// draw obstacles
+	ctx.fillStyle = "red";
+	for (i = 0; i < myArray.length; i++) {
+		rect(myArray[i][0],myArray[i][1],myArray[i][2],myArray[i][3]);
+	}
+	
+	// draw image
+	var img = new Image;
+	img.onload = function(){
+  		ctx.drawImage(img,x,y); // Or at whatever offset you like
+	};
+	img.src = stuffDir + linkImage;
+}
+
+// Important starting function
+function init() {
+	canvas = document.getElementById("canvas");
+	ctx = canvas.getContext("2d");
+	return setInterval(draw, 20); // this is key, tells draw function to fire 10x per second
+}
+
+/* Main part of program
+1. Initialize the canvas and set draw time to 20x second (no flickering at this rate)
+2. Play soundtrack
+3. Set keydown listener to MoveIt function
+4. Set keyup listener to ReleaseIt function
+*/
+
+init();
+var sndtrk = new Audio("http://www1.ucc.on.ca/GEO/MrHoel/2015/ics4u/game/stuff/storm.wav");
+sndtrk.play();
+window.addEventListener('keydown',MoveIt,true);
+window.addEventListener('keyup',ReleaseIt,true);
+
+</script>
+</body>
+</html>
