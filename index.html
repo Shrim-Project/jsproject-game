@@ -42,6 +42,10 @@ var velY = 0;
 var velX = 0;
 var WIDTH = 650;
 var HEIGHT = 650;
+var xx = WIDTH-150;
+var yy = HEIGHT-100;
+var velXX = 0;
+var velYY = 0;
 var friction = 0.99;
 var keys = [];
 
@@ -75,23 +79,25 @@ function init() {
 function update(){
 	requestAnimationFrame(update);
 
-    if(keys[38]) {
+	// movement for player 1 (arrow keys)
+
+    if(keys[38]) { // Up arrow
         if (velY > -speed) {
             velY--;
         }
     }
     
-    if (keys[40]) {
+    if (keys[40]) { // Down arrow
         if (velY < speed) {
             velY++;
         }
     }
-    if (keys[39]) {
+    if (keys[39]) { // Right arrow
         if (velX < speed) {
             velX++;
         }
     }
-    if (keys[37]) {
+    if (keys[37]) { // Left arrow
         if (velX > -speed) {
             velX--;
         }
@@ -106,6 +112,7 @@ function update(){
     	velX *= friction;
     	x += velX;
 
+    	//keep player 1 within the screen
     	if (x >= WIDTH-5 && !keys[39]) {
         velX *= -friction;
     } else if(x >= WIDTH-5 && keys[39]) {
@@ -130,16 +137,85 @@ function update(){
     } else if(y <= 5 && keys[38]) {
     	y = 5;
     }
+    //*****************************
+    //
+    // movement for player 2 (WASD)
+    //
+    //****************************
+
+    if(keys[87]) { // W key
+        if (velYY > -speed) {
+            velYY--;
+        }
+    }
+    
+    if (keys[83]) { // S key
+        if (velYY < speed) {
+            velYY++;
+        }
+    }
+    if (keys[68]) { // D key
+        if (velXX < speed) {
+            velXX++;
+        }
+    }
+    if (keys[65]) { // A key
+        if (velXX > -speed) {
+            velXX--;
+        }
+    }
+
+    		    // apply some friction to yy velocity.
+    	velYY *= friction;
+    	yy += velYY;
+
+    	// apply some friction to xx velocity.
+    	velXX *= friction;
+    	xx += velXX;
+
+    	//keep player 2 within screen
+    	if (xx >= WIDTH-5 && !keys[68]) {
+        velXX *= -friction;
+    } else if(xx >= WIDTH-5 && keys[68]) {
+    	xx = WIDTH-5;
+    }
+
+    if (xx <= 5 && !keys[65]) {
+        velXX *= -friction;
+    } else if(xx <= 5 && keys[65]) {
+    	xx = 5;
+    }
+
+
+    if (yy >= HEIGHT-5 && !keys[83]) {
+        velYY *= -friction;
+    } else if(yy >= HEIGHT-5 && keys[83]) {
+    	yy = HEIGHT-5;
+    }
+
+    if (yy <= 5 && !keys[87]) {
+        velYY *= -friction;
+    } else if(yy <= 5 && keys[87]) {
+    	yy = 5;
+    }
+
 }
 
 
 function draw() {
 	clear();
+	//draw rect
 	ctx.fillStyle = "white";
 	ctx.strokeStyle = "black";
 	rect(0,0,WIDTH,HEIGHT);
+	//draw player 1
 	ctx.fillStyle = "purple";
+	ctx.strokeStyl = "black";
 	circle(x, y, 10);
+	//draw player 2
+	ctx.fillStyle = "orange";
+	ctx.strokeStyle = "black";
+	circle(xx,yy,10)
 }
 
 // Main part of program
