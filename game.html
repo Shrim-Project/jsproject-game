@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>A Tale of Two Shrims</title>
+<title>The Tale of Two Shrims</title>
 </head>
 <body>
 	<embed src="background_music.mp3" autostart="true" hidden="true" loop="true">
@@ -13,13 +13,19 @@
 <canvas id="canvas" width="650px" height="650px">
 This text is displayed if your browser does not support HTML5 Canvas.
 </canvas>
-</div>
 
+<p id="score">Shrimad: 0 / Shrim-very-mad: 0</p>
+</div>
 <style>
 
 canvas {
     	border: 1px solid #000;
 		}	
+
+	p {
+		display: inline-block;
+		margin-top: 0;
+	}
 
 </style>
 
@@ -50,9 +56,15 @@ var yy = HEIGHT-100;
 var velXX = 0;
 var velYY = 0;
 var friction = 0.99;
+var score_1 = 0;
+var score_2 = 0;
 var keys = [];
 var size_h = 38;
 var size_w = 41-5;
+var myArray = new Array (10);
+myArray = popArray(myArray);
+//var ran_1 = getRandomInt(0,650);
+//var ran_2 = getRandomInt(0,650);
 
 function circle(x,y,r) {
 	ctx.beginPath();
@@ -220,6 +232,22 @@ function update(){
 
 }
 
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+//make coins
+function popArray(myArray) {
+	var i;
+	for (i = 0; i < myArray.length; i++) {
+    	myArray[i] = [getRandomInt(0,WIDTH),getRandomInt(0,HEIGHT),10,10];
+	}
+	return myArray;
+}
+
+
 function draw() {
 	clear();
 	//draw rect
@@ -227,16 +255,20 @@ function draw() {
 	ctx.fillStyle = "white";
 	ctx.strokeStyle = "black";
 	rect(0,0,WIDTH,HEIGHT);
+		ctx.fillStyle = "orange";
+	for (i = 0; i < myArray.length; i++) {
+		rect(myArray[i][0],myArray[i][1],myArray[i][2],myArray[i][3]);
+	}
 	//draw player 1
-	ctx.fillStyle = "purple";
-	ctx.strokeStyle = "black";
-	//circle(x, y, 10);
+
 	ctx.drawImage(shrimimg,x,y);
+
 	//draw player 2
-	ctx.fillStyle = "orange";
-	ctx.strokeStyle = "black";
-	//circle(xx, yy, 10);
 	ctx.drawImage(shrimimg,xx,yy);
+
+
+	
+	
 
 }
 
