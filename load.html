@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<style>
+#myProgress {
+  width: 100%;
+  background-color: #ddd;
+}
+
+#myBar {
+  width: 10%;
+  height: 30px;
+  position: absolute;
+	top:0;
+	bottom: 0;
+	left:0;
+	margin: auto;
+
+  background-color: #3498db;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}
+
+#button {
+	margin-top: 30%;
+	margin-left: 47.5%;
+}
+
+</style>
+<body>
+<title>Loading...</title>
+
+
+
+<div id="myProgress">
+  <div id="myBar">0%</div>
+</div>
+
+<button type="button" id="button" onclick="location.href='game.html';" disabled>Loading...</button>
+
+<br>
+
+
+<script>
+function move() {
+  var elem = document.getElementById("myBar");   
+  var width = 0;
+  var id = setInterval(frame, 30);
+  function frame() {
+    if (width >= 100) {
+      clearInterval(id);
+      document.getElementById("button").disabled = false;
+      document.getElementById("button").innerHTML = "Ready!";
+
+    } else {
+      width++; 
+      elem.style.width = width + '%'; 
+      elem.innerHTML = width * 1  + '%';
+    }
+  }
+}
+
+move();
+</script>
+
+</body>
+</html>
