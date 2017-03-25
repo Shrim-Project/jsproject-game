@@ -34,6 +34,8 @@ canvas {
 // Set some global variables
 var canvas;
 var ctx;
+var shrimimg = new Image();
+shrimimg.src = "blue.png";
 var dx = 1;
 var dy = 1;
 var speed = 4;
@@ -49,6 +51,8 @@ var velXX = 0;
 var velYY = 0;
 var friction = 0.99;
 var keys = [];
+var size_h = 38;
+var size_w = 41-5;
 
 function circle(x,y,r) {
 	ctx.beginPath();
@@ -67,6 +71,7 @@ function rect(x,y,w,h) {
 
 function clear() {
 	ctx.clearRect(0, 0, WIDTH, HEIGHT);
+
 }
 
 // Important starting function
@@ -74,8 +79,11 @@ function init() {
 	canvas = document.getElementById("canvas");
 	ctx = canvas.getContext("2d");
 	return setInterval(draw, 1); // this is key, tells draw function to fire 1x per second
+
 	
 }
+
+
 
 function update(){
 	requestAnimationFrame(update);
@@ -119,29 +127,29 @@ function update(){
     	x += velX;
 
     	//keep player 1 within the screen
-    	if (x >= WIDTH-5 && !keys[39]) {
+    	if (x >= WIDTH-size_w && !keys[39]) {
         velX *= -friction;
-    } else if(x >= WIDTH-5 && keys[39]) {
-    	x = WIDTH-5;
+    } else if(x >= WIDTH-size_w && keys[39]) {
+    	x = WIDTH-size_w;
     }
 
-    if (x <= 5 && !keys[37]) {
+    if (x <= 0 && !keys[37]) {
         velX *= -friction;
-    } else if(x <= 5 && keys[37]) {
-    	x = 5;
+    } else if(x <= 0 && keys[37]) {
+    	x = 0;
     }
 
 
-    if (y >= HEIGHT-5 && !keys[40]) {
+    if (y >= HEIGHT-size_h && !keys[40]) {
         velY *= -friction;
-    } else if(y >= HEIGHT-5 && keys[40]) {
-    	y = HEIGHT-5;
+    } else if(y >= HEIGHT-size_h && keys[40]) {
+    	y = HEIGHT-size_h;
     }
 
-    if (y <= 5 && !keys[38]) {
+    if (y <= 0 && !keys[38]) {
         velY *= -friction;
-    } else if(y <= 5 && keys[38]) {
-    	y = 5;
+    } else if(y <= 0 && keys[38]) {
+    	y = 0;
     }
     //*****************************
     //
@@ -185,48 +193,50 @@ function update(){
     	xx += velXX;
 
     	//keep player 2 within screen
-    	if (xx >= WIDTH-5 && !keys[68]) {
+    	if (xx >= WIDTH-size_w && !keys[68]) {
         velXX *= -friction;
-    } else if(xx >= WIDTH-5 && keys[68]) {
-    	xx = WIDTH-5;
+    } else if(xx >= WIDTH-size_w && keys[68]) {
+    	xx = WIDTH-size_w;
     }
 
-    if (xx <= 5 && !keys[65]) {
+    if (xx <= 0 && !keys[65]) {
         velXX *= -friction;
-    } else if(xx <= 5 && keys[65]) {
-    	xx = 5;
+    } else if(xx <= 0 && keys[65]) {
+    	xx = 0;
     }
 
 
-    if (yy >= HEIGHT-5 && !keys[83]) {
+    if (yy >= HEIGHT-size_h && !keys[83]) {
         velYY *= -friction;
-    } else if(yy >= HEIGHT-5 && keys[83]) {
-    	yy = HEIGHT-5;
+    } else if(yy >= HEIGHT-size_h && keys[83]) {
+    	yy = HEIGHT-size_h;
     }
 
-    if (yy <= 5 && !keys[87]) {
+    if (yy <= 0 && !keys[87]) {
         velYY *= -friction;
-    } else if(yy <= 5 && keys[87]) {
-    	yy = 5;
+    } else if(yy <= 0 && keys[87]) {
+    	yy = 0;
     }
 
 }
 
-
 function draw() {
 	clear();
 	//draw rect
+
 	ctx.fillStyle = "white";
 	ctx.strokeStyle = "black";
 	rect(0,0,WIDTH,HEIGHT);
 	//draw player 1
 	ctx.fillStyle = "purple";
 	ctx.strokeStyle = "black";
-	circle(x, y, 10);
+	//circle(x, y, 10);
+	ctx.drawImage(shrimimg,x,y);
 	//draw player 2
 	ctx.fillStyle = "orange";
 	ctx.strokeStyle = "black";
-	circle(xx,yy,10)
+	//circle(xx, yy, 10);
+	ctx.drawImage(shrimimg,xx,yy);
 
 }
 
