@@ -62,6 +62,7 @@ var keys = [];
 var size_h = 38;
 var size_w = 41-5;
 var myArray = new Array (10);
+var linkObj = {x:x,y:y,width:36,height:41}
 myArray = popArray(myArray);
 //var ran_1 = getRandomInt(0,650);
 //var ran_2 = getRandomInt(0,650);
@@ -95,12 +96,31 @@ function init() {
 	
 }
 
-
+function isCollide(a) {
+	var obj_x = a[0]; var obj_y = a[1]; var obj_width = a[2]; var obj_height = a[3];
+	var link_width = 36; var link_height = 41;
+    return !(
+        ((obj_y + obj_height) < (y)) ||
+        (obj_y > (y + link_height)) ||
+        ((obj_x + obj_width) < x) ||
+        (obj_x > (x + link_width))
+    );
+}
 
 function update(){
 	requestAnimationFrame(update);
 
+	var i;
+	for (i = 0; i < myArray.length; i++) {
+    	if (isCollide(myArray[i], linkObj)) {
+			x = 100; y = 100;
+			//var snd = new Audio("http://www1.ucc.on.ca/GEO/MrHoel/2015/ics4u/game/stuff/youch.wav");
+			//snd.play();
+		}
+	}
+
 	// movement for player 1 (arrow keys)
+
 
     if(keys[38]) { // Up arrow
         if (velY > -speed) {
