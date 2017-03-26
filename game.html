@@ -121,6 +121,8 @@ function areCollide(a) {
 
 
 
+
+
 function update(){
 	requestAnimationFrame(update);
 
@@ -130,13 +132,21 @@ function update(){
     	if (isCollide(myArray[i], linkObj)) {
 			myArray.splice(i,1);
             score_1++;
+            console.log(myArray);
         }
         if (areCollide(myArray[i], linkObj_two)) {
             myArray.splice(i,1);
             score_2++;
+            console.log(myArray);
         }
 		
 	}
+
+    if(myArray.length===0) {
+        myArray = new Array (10);
+        myArray = popArray(myArray);
+        console.log(myArray);
+    }
 
 
 
