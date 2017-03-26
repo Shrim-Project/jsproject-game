@@ -25,6 +25,9 @@ canvas {
 	p {
 		display: inline-block;
 		margin-top: 0;
+        position: absolute;
+        top: 10;
+        left: 750;
 	}
 
 </style>
@@ -132,12 +135,10 @@ function update(){
     	if (isCollide(myArray[i], linkObj)) {
 			myArray.splice(i,1);
             score_1++;
-            console.log(myArray);
         }
         if (areCollide(myArray[i], linkObj_two)) {
             myArray.splice(i,1);
             score_2++;
-            console.log(myArray);
         }
 		
 	}
@@ -145,7 +146,14 @@ function update(){
     if(myArray.length===0) {
         myArray = new Array (10);
         myArray = popArray(myArray);
-        console.log(myArray);
+    }
+
+        if(score_1>=100) {
+        window.location.assign("shrimad_wins.html");
+    }
+
+    if(score_2>=100) {
+        window.location.assign("shrim-very-mad_wins.html");
     }
 
 
@@ -295,7 +303,7 @@ function getRandomInt(min, max) {
 function popArray(myArray) {
 	var i;
 	for (i = 0; i < myArray.length; i++) {
-    	myArray[i] = [getRandomInt(0,WIDTH),getRandomInt(0,HEIGHT),10,10];
+    	myArray[i] = [getRandomInt(10,WIDTH-10),getRandomInt(10,HEIGHT-10),10,10];
 	}
 	return myArray;
 }
