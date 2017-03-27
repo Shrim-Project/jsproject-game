@@ -6,31 +6,72 @@
 
 <style>
 #button {
-    width: 6em;
-    border: 2px solid green;
-    background: #ffe;
-    border-radius: 5px;
-    margin-left: 46%;
+
+    background: #428BCA;
+    display: block;
+    font-family: 'Oleo Script';
+    font-size: 20px;
+    height: 60px;
+    width: 15%;
+    margin: 0 auto;
+    line-height: 60px;
     text-align: center;
+    border: 0;
+    transition: all 0.3s ease 0s;
+
 }
+
+
 a {
     display: block;
     width: 100%;
+    color: #2b2b2b;
     text-align: center;
     text-decoration: none;
     border-radius: 5px;
 }
-a:hover {
-    color: red;
-    background: #eff;
-}
 
+a:hover {
+    background: #3071A9;
+    color: #b2b2b2;
+}
 
 h1 {
   font: 400 100px/1.3 'Oleo Script', Helvetica, sans-serif;
   color: #2b2b2b;
   text-shadow: 4px 4px 0px rgba(0,0,0,0.1);
   text-align: center;
+}
+
+body {
+background: linear-gradient(54deg, #7b2c83, #b359ce, #c26bc3);
+background-size: 600% 600%;
+
+-webkit-animation: AnimationName 0s ease infinite;
+-moz-animation: AnimationName 0s ease infinite;
+-o-animation: AnimationName 0s ease infinite;
+animation: AnimationName 0s ease infinite;
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 70%}
+    50%{background-position:100% 31%}
+    100%{background-position:0% 70%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 70%}
+    50%{background-position:100% 31%}
+    100%{background-position:0% 70%}
+}
+@-o-keyframes AnimationName {
+    0%{background-position:0% 70%}
+    50%{background-position:100% 31%}
+    100%{background-position:0% 70%}
+}
+@keyframes AnimationName { 
+    0%{background-position:0% 70%}
+    50%{background-position:100% 31%}
+    100%{background-position:0% 70%}
+    }
 }
 
 </style>
