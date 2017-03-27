@@ -45,34 +45,29 @@ h1 {
 body {
 
 
-background: linear-gradient(54deg, #7b2c83, #b359ce, #c26bc3);
-background-size: 600% 600%;
+-webkit-animation: colorchange 2s infinite; 
+                    animation: colorchange 2s infinite;
+                    font-family: comicsansms;
+                    text-align: center;
+            }
 
--webkit-animation: AnimationName 0s ease infinite;
--moz-animation: AnimationName 0s ease infinite;
--o-animation: AnimationName 0s ease infinite;
-animation: AnimationName 0s ease infinite;
-
-@-webkit-keyframes AnimationName {
-    0%{background-position:0% 70%}
-    50%{background-position:100% 31%}
-    100%{background-position:0% 70%}
+                @-webkit-keyframes colorchange {
+ 
+     0%  {background: #33FFF3;}
+    25%  {background: #78281F;}
+    50%  {background: #117A65;}
+    75%  {background: #DC7633;}
+    100% {background: #9B59B6;}
 }
-@-moz-keyframes AnimationName {
-    0%{background-position:0% 70%}
-    50%{background-position:100% 31%}
-    100%{background-position:0% 70%}
-}
-@-o-keyframes AnimationName {
-    0%{background-position:0% 70%}
-    50%{background-position:100% 31%}
-    100%{background-position:0% 70%}
-}
-@keyframes AnimationName { 
-    0%{background-position:0% 70%}
-    50%{background-position:100% 31%}
-    100%{background-position:0% 70%}
-    }
+ 
+ 
+@keyframes colorchange {
+     0%  {background: #33FFF3;}
+    25%  {background: #78281F;}
+    50%  {background: #117A65;}
+    75%  {background: #DC7633;}
+    100% {background: #9B59B6;}
+}   
 }
 
 </style>
