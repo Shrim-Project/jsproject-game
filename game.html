@@ -130,9 +130,11 @@ function update(){
     }
         if(score_1>=100) {
         window.location.assign("https://shrim-project.github.io/jsproject-game/shrimad_wins.html");
+            score_1=0;
     }
     if(score_2>=100) {
         window.location.assign("https://shrim-project.github.io/jsproject-game/shrim-very-mad_wins.html");
+        score_2=0;
     }
     //update score
     document.getElementById("score").innerHTML = "Shrimad: " + score_1 + " / Shrim-very-mad: " + score_2;
