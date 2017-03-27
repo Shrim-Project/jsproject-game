@@ -5,7 +5,7 @@
 <title>A Tale of Two Shrims</title>
 </head>
 <body>
-	<embed src="background_music.mp3" autostart="true" hidden="true" loop="true">
+    <embed src="background_music.mp3" autostart="true" hidden="true" loop="true">
 <section>
 
 <!-- This div is the canvas -->
@@ -17,19 +17,16 @@ This text is displayed if your browser does not support HTML5 Canvas.
 <p id="score">Shrimad: 0 / Shrim-very-mad: 0</p>
 </div>
 <style>
-
 canvas {
-    	border: 1px solid #000;
-		}	
-
-	p {
-		display: inline-block;
-		margin-top: 0;
+        border: 1px solid #000;
+        }   
+    p {
+        display: inline-block;
+        margin-top: 0;
         position: absolute;
         top: 10;
         left: 750;
-	}
-
+    }
 </style>
 
 <script type="text/javascript">
@@ -38,13 +35,13 @@ canvas {
    http://html5.litten.com/moving-shapes-on-the-html5-canvas-with-the-keyboard/
    programmer: MHoel, Nov 3, 2014
 */
-
-
 // Set some global variables
 var canvas;
 var ctx;
 var shrimimg = new Image();
 shrimimg.src = "blue.png";
+var shrimimg_red = new Image();
+shrimimg_red.src = "red.png";
 var dx = 1;
 var dy = 1;
 var speed = 4;
@@ -70,39 +67,31 @@ var linkObj_two = {x:xx,y:yy,width:36,height:41};
 myArray = popArray(myArray);
 //var ran_1 = getRandomInt(0,650);
 //var ran_2 = getRandomInt(0,650);
-
 function circle(x,y,r) {
-	ctx.beginPath();
-	ctx.arc(x, y, r, 0, Math.PI*2, true);
-	ctx.fill();
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI*2, true);
+    ctx.fill();
 }
-
 function rect(x,y,w,h) {
-	ctx.beginPath();
-	ctx.rect(x,y,w,h);
-	ctx.closePath();
-	ctx.fill();
-	ctx.stroke();
+    ctx.beginPath();
+    ctx.rect(x,y,w,h);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
 }
-
-
 function clear() {
-	ctx.clearRect(0, 0, WIDTH, HEIGHT);
-
+    ctx.clearRect(0, 0, WIDTH, HEIGHT);
 }
-
 // Important starting function
 function init() {
-	canvas = document.getElementById("canvas");
-	ctx = canvas.getContext("2d");
-	return setInterval(draw, 1); // this is key, tells draw function to fire 1x per second
-
-	
+    canvas = document.getElementById("canvas");
+    ctx = canvas.getContext("2d");
+    return setInterval(draw, 1); // this is key, tells draw function to fire 1x per second
+    
 }
-
 function isCollide(a) {
-	var obj_x = a[0]; var obj_y = a[1]; var obj_width = a[2]; var obj_height = a[3];
-	var link_width = 36; var link_height = 41;
+    var obj_x = a[0]; var obj_y = a[1]; var obj_width = a[2]; var obj_height = a[3];
+    var link_width = 36; var link_height = 41;
     return !(
         ((obj_y + obj_height) < (y)) ||
         (obj_y > (y + link_height)) ||
@@ -110,7 +99,6 @@ function isCollide(a) {
         (obj_x > (x + link_width))
     );
 }
-
 function areCollide(a) {
     var obj_x = a[0]; var obj_y = a[1]; var obj_width = a[2]; var obj_height = a[3];
     var link_width = 36; var link_height = 41;
@@ -121,48 +109,34 @@ function areCollide(a) {
         (obj_x > (xx + link_width))
     );
 }
-
-
-
-
-
 function update(){
-	requestAnimationFrame(update);
-
+    requestAnimationFrame(update);
     //collision
-	var i;
-	for (i = 0; i < myArray.length; i++) {
-    	if (isCollide(myArray[i], linkObj)) {
-			myArray.splice(i,1);
+    var i;
+    for (i = 0; i < myArray.length; i++) {
+        if (isCollide(myArray[i], linkObj)) {
+            myArray.splice(i,1);
             score_1++;
         }
         if (areCollide(myArray[i], linkObj_two)) {
             myArray.splice(i,1);
             score_2++;
         }
-		
-	}
-
+        
+    }
     if(myArray.length===0) {
         myArray = new Array (10);
         myArray = popArray(myArray);
     }
-
         if(score_1>=100) {
         window.location.assign("https://shrim-project.github.io/jsproject-game/shrimad_wins.html");
     }
-
     if(score_2>=100) {
         window.location.assign("https://shrim-project.github.io/jsproject-game/shrim-very-mad_wins.html");
     }
-
-
-
     //update score
     document.getElementById("score").innerHTML = "Shrimad: " + score_1 + " / Shrim-very-mad: " + score_2;
-	// movement for player 1 (arrow keys)
-
-
+    // movement for player 1 (arrow keys)
     if(keys[38]) { // Up arrow
         if (velY > -speed) {
             velY--;
@@ -184,52 +158,42 @@ function update(){
             velX--;
         }
     }
-
     if (keys[18]) {
-    	velX *= 0.9;
-    	velY *= 0.9;
+        velX *= 0.9;
+        velY *= 0.9;
     }
-
-
-		// apply some friction to y velocity.
-    	velY *= friction;
-    	y += velY;
-
-    	// apply some friction to x velocity.
-    	velX *= friction;
-    	x += velX;
-
-    	//keep player 1 within the screen
-    	if (x >= WIDTH-size_w && !keys[39]) {
+        // apply some friction to y velocity.
+        velY *= friction;
+        y += velY;
+        // apply some friction to x velocity.
+        velX *= friction;
+        x += velX;
+        //keep player 1 within the screen
+        if (x >= WIDTH-size_w && !keys[39]) {
         velX *= -friction;
     } else if(x >= WIDTH-size_w && keys[39]) {
-    	x = WIDTH-size_w;
+        x = WIDTH-size_w;
     }
-
     if (x <= 0 && !keys[37]) {
         velX *= -friction;
     } else if(x <= 0 && keys[37]) {
-    	x = 0;
+        x = 0;
     }
-
-
     if (y >= HEIGHT-size_h && !keys[40]) {
         velY *= -friction;
     } else if(y >= HEIGHT-size_h && keys[40]) {
-    	y = HEIGHT-size_h;
+        y = HEIGHT-size_h;
     }
-
     if (y <= 0 && !keys[38]) {
         velY *= -friction;
     } else if(y <= 0 && keys[38]) {
-    	y = 0;
+        y = 0;
     }
     //*****************************
     //
     // movement for player 2 (WASD)
     //
     //****************************
-
     if(keys[87]) { // W key
         if (velYY > -speed) {
             velYY--;
@@ -251,100 +215,78 @@ function update(){
             velXX--;
         }
     }
-
     if (keys[16]) {
-    	velXX *= 0.9;
-    	velYY *= 0.9;
+        velXX *= 0.9;
+        velYY *= 0.9;
     }
-
-    		    // apply some friction to yy velocity.
-    	velYY *= friction;
-    	yy += velYY;
-
-    	// apply some friction to xx velocity.
-    	velXX *= friction;
-    	xx += velXX;
-
-    	//keep player 2 within screen
-    	if (xx >= WIDTH-size_w && !keys[68]) {
+                // apply some friction to yy velocity.
+        velYY *= friction;
+        yy += velYY;
+        // apply some friction to xx velocity.
+        velXX *= friction;
+        xx += velXX;
+        //keep player 2 within screen
+        if (xx >= WIDTH-size_w && !keys[68]) {
         velXX *= -friction;
     } else if(xx >= WIDTH-size_w && keys[68]) {
-    	xx = WIDTH-size_w;
+        xx = WIDTH-size_w;
     }
-
     if (xx <= 0 && !keys[65]) {
         velXX *= -friction;
     } else if(xx <= 0 && keys[65]) {
-    	xx = 0;
+        xx = 0;
     }
-
-
     if (yy >= HEIGHT-size_h && !keys[83]) {
         velYY *= -friction;
     } else if(yy >= HEIGHT-size_h && keys[83]) {
-    	yy = HEIGHT-size_h;
+        yy = HEIGHT-size_h;
     }
-
     if (yy <= 0 && !keys[87]) {
         velYY *= -friction;
     } else if(yy <= 0 && keys[87]) {
-    	yy = 0;
+        yy = 0;
     }
-
 }
-
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min;
 }
-
 //make coins
 function popArray(myArray) {
-	var i;
-	for (i = 0; i < myArray.length; i++) {
-    	myArray[i] = [getRandomInt(10,WIDTH-10),getRandomInt(10,HEIGHT-10),10,10];
-	}
-	return myArray;
+    var i;
+    for (i = 0; i < myArray.length; i++) {
+        myArray[i] = [getRandomInt(10,WIDTH-10),getRandomInt(10,HEIGHT-10),10,10];
+    }
+    return myArray;
 }
-
-
 function draw() {
-	clear();
-	//draw rect
-
-	ctx.fillStyle = "white";
-	ctx.strokeStyle = "black";
-	rect(0,0,WIDTH,HEIGHT);
-		ctx.fillStyle = "orange";
-	for (i = 0; i < myArray.length; i++) {
-		rect(myArray[i][0],myArray[i][1],myArray[i][2],myArray[i][3]);
-	}
-	//draw player 1
-
-	ctx.drawImage(shrimimg,x,y);
-
-	//draw player 2
-	ctx.drawImage(shrimimg,xx,yy);
-
-
-	
-	
-
+    clear();
+    //draw rect
+    ctx.fillStyle = "white";
+    ctx.strokeStyle = "black";
+    rect(0,0,WIDTH,HEIGHT);
+        ctx.fillStyle = "orange";
+    for (i = 0; i < myArray.length; i++) {
+        rect(myArray[i][0],myArray[i][1],myArray[i][2],myArray[i][3]);
+    }
+    //draw player 1
+    ctx.drawImage(shrimimg,x,y);
+    //draw player 2
+    ctx.drawImage(shrimimg_red,xx,yy);
+    
+    
 }
-
 // Main part of program
 init();
 update();
 //window.addEventListener('keydown',doKeyDown,true);
-
 document.body.addEventListener("keydown", function (e) {
     keys[e.keyCode] = true;
 });
 document.body.addEventListener("keyup", function (e) {
     keys[e.keyCode] = false;
 });
-
 </script>
 </section>
 </body>
