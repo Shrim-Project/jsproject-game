@@ -1,29 +1,69 @@
 <!DOCTYPE html>
 <html>
+<head><link href="https://fonts.googleapis.com/css?family=Oleo+Script" rel="stylesheet"></head>
 <style>
+
+body {
+  -webkit-animation: colorchange 2s infinite; 
+                    animation: colorchange 2s infinite;
+                    text-align: center;
+            }
+
+                @-webkit-keyframes colorchange {
+ 
+     0%  {background: #33FFF3;}
+    25%  {background: #78281F;}
+    50%  {background: #117A65;}
+    75%  {background: #DC7633;}
+    100% {background: #9B59B6;}
+}
+ 
+ 
+@keyframes colorchange {
+     0%  {background: #33FFF3;}
+    25%  {background: #78281F;}
+    50%  {background: #117A65;}
+    75%  {background: #DC7633;}
+    100% {background: #9B59B6;}
+}   
+}
 #myProgress {
   width: 100%;
   background-color: #ddd;
 }
-
 #myBar {
   width: 10%;
   height: 30px;
   position: absolute;
-	top:0;
-	bottom: 0;
-	left:0;
-	margin: auto;
-
+  top:0;
+  bottom: 0;
+  left:0;
+  margin: auto;
   background-color: #3498db;
   text-align: center;
   line-height: 30px;
   color: white;
 }
-
 #button {
-	margin-top: 30%;
-	margin-left: 47.5%;
+
+background: #428BCA;
+    display: block;
+    font-family: 'Oleo Script';
+    font-size: 20px;
+    height: 60px;
+    width: 15%;
+    margin: 0 auto;
+    text-align: center;
+    border: 0;
+    transition: all 0.3s ease 0s;
+    margin-top: 10em;
+    position: relative;
+
+
+}
+
+button:hover {
+  background-color: #2980b9;
 }
 
 </style>
@@ -51,7 +91,6 @@ function move() {
       clearInterval(id);
       document.getElementById("button").disabled = false;
       document.getElementById("button").innerHTML = "Ready!";
-
     } else {
       width++; 
       elem.style.width = width + '%'; 
@@ -59,7 +98,6 @@ function move() {
     }
   }
 }
-
 move();
 </script>
 
