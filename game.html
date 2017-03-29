@@ -27,6 +27,29 @@ canvas {
         top: 10;
         left: 750;
     }
+
+    body {
+  -webkit-animation: colorchange 2s infinite; 
+                    animation: colorchange 2s infinite;
+            }
+
+                @-webkit-keyframes colorchange {
+ 
+     0%  {background: #33FFF3;}
+    25%  {background: #78281F;}
+    50%  {background: #117A65;}
+    75%  {background: #DC7633;}
+    100% {background: #9B59B6;}
+}
+ 
+ 
+@keyframes colorchange {
+     0%  {background: #33FFF3;}
+    25%  {background: #78281F;}
+    50%  {background: #117A65;}
+    75%  {background: #DC7633;}
+    100% {background: #9B59B6;}
+}  
 </style>
 
 <script type="text/javascript">
@@ -43,7 +66,9 @@ shrimimg.src = "blue.png";
 var shrimimg_red = new Image();
 shrimimg_red.src = "red.png";
 var coinimg = new Image();
-coinimg.src = "coin.gif";
+coinimg.src = "silver.png";
+var gold = new Image();
+gold.src = "coin.gif";
 var sound = new Audio('ring.mp3');
 var dx = 1;
 var dy = 1;
@@ -64,10 +89,13 @@ var score_2 = 0;
 var keys = [];
 var size_h = 38;
 var size_w = 41-5;
-var myArray = new Array (10);
+var myArray = new Array (9);
+myArray = popArray(myArray);
+var goldArray = new Array (1);
+goldArray = popArray(goldArray);
 var linkObj = {x:x,y:y,width:36,height:41};
 var linkObj_two = {x:xx,y:yy,width:36,height:41};
-myArray = popArray(myArray);
+
 //var ran_1 = getRandomInt(0,650);
 //var ran_2 = getRandomInt(0,650);
 function circle(x,y,r) {
@@ -130,9 +158,28 @@ function update(){
         }
         
     }
-    if(myArray.length===0) {
-        myArray = new Array (10);
+    var q;
+        for (q = 0; q < goldArray.length; q++) {
+        if (isCollide(goldArray[q], linkObj)) {
+            goldArray.splice(q,1);
+            score_1+=5;
+            sound.play();
+
+        }
+        if (areCollide(goldArray[q], linkObj_two)) {
+            goldArray.splice(q,1);
+            score_2+=5;
+            sound.play();
+        }
+        
+    }
+
+
+    if(myArray.length===0 && goldArray.length===0) {
+        myArray = new Array (9);
         myArray = popArray(myArray);
+        goldArray = new Array (1);
+        goldArray = popArray(goldArray);
     }
         if(score_1>=100) {
         window.location.assign("https://shrim-project.github.io/jsproject-game/shrimad_wins.html");
@@ -278,6 +325,10 @@ function draw() {
     for (i = 0; i < myArray.length; i++) {
         //circle(myArray[i][0],myArray[i][1],5);
         ctx.drawImage(coinimg,myArray[i][0],myArray[i][1]);
+    }
+
+    for (var j=0; j<goldArray.length;j++) {
+        ctx.drawImage(gold,goldArray[j][0],goldArray[j][1]);
     }
     //draw player 1
     ctx.drawImage(shrimimg,x,y);
