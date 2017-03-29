@@ -69,6 +69,8 @@ var coinimg = new Image();
 coinimg.src = "silver.png";
 var gold = new Image();
 gold.src = "coin.gif";
+var back = new Image();
+back.src = "back.jpg";
 var sound = new Audio('ring.mp3');
 var dx = 1;
 var dy = 1;
@@ -162,13 +164,13 @@ function update(){
         for (q = 0; q < goldArray.length; q++) {
         if (isCollide(goldArray[q], linkObj)) {
             goldArray.splice(q,1);
-            score_1+=5;
+            score_1+=3;
             sound.play();
 
         }
         if (areCollide(goldArray[q], linkObj_two)) {
             goldArray.splice(q,1);
-            score_2+=5;
+            score_2+=3;
             sound.play();
         }
         
@@ -317,11 +319,11 @@ function popArray(myArray) {
 }
 function draw() {
     clear();
+
     //draw rect
     ctx.fillStyle = "white";
     ctx.strokeStyle = "black";
     rect(0,0,WIDTH,HEIGHT);
-        ctx.fillStyle = '#C0C0C0';
     for (i = 0; i < myArray.length; i++) {
         //circle(myArray[i][0],myArray[i][1],5);
         ctx.drawImage(coinimg,myArray[i][0],myArray[i][1]);
